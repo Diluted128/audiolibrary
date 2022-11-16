@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS Employee (
-    id integer primary key,
+    id serial primary key,
     firstName varchar(40),
     lastName varchar(40),
     age integer,
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Employee (
 );
 
 CREATE TABLE IF NOT EXISTS Client (
-    id integer primary key,
+    id serial primary key,
     firstName varchar(40),
     lastName varchar(40),
     age integer,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Client (
 );
 
 CREATE TABLE IF NOT EXISTS Artist (
-    id integer primary key,
+    id serial primary key,
     firstName varchar(40),
     lastName varchar(40),
     country varchar(40),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Artist (
 );
 
 CREATE TABLE IF NOT EXISTS Album (
-    id integer primary key,
+    id serial primary key,
     name varchar(60),
     artist_id integer
 );
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS Album (
 ALTER TABLE Album ADD CONSTRAINT fk_album_artist FOREIGN KEY (artist_id) REFERENCES Artist(id);
 
 CREATE TABLE IF NOT EXISTS Track (
-  id integer primary key,
+  id serial primary key,
   title varchar(40),
   type varchar(40),
   views integer,
@@ -48,7 +48,7 @@ ALTER TABLE Track ADD CONSTRAINT fk_track_album FOREIGN KEY (album_id) REFERENCE
 ALTER TABLE Track ADD CONSTRAINT fk_track_artist FOREIGN KEY (album_id) REFERENCES Artist(id);
 
 CREATE TABLE IF NOT EXISTS Playlist (
-    id integer primary key,
+    id serial primary key,
     name varchar(40),
     client_id integer
 );
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS Playlist (
 ALTER TABLE Playlist ADD CONSTRAINT fk_playlist_client FOREIGN KEY (client_id) REFERENCES Client(id);
 
 CREATE TABLE IF NOT EXISTS Client_Artist (
-    id integer primary key,
+    id serial primary key,
     client_id integer,
     artist_id integer
 );
@@ -65,7 +65,7 @@ ALTER TABLE Client_Artist ADD CONSTRAINT fk_client_artist_client FOREIGN KEY (cl
 ALTER TABLE Client_Artist ADD CONSTRAINT fk_client_artist_artist FOREIGN KEY (artist_id) REFERENCES Artist(id);
 
 CREATE TABLE IF NOT EXISTS Client_Track (
-    id integer primary key,
+    id serial primary key,
     client_id integer,
     track_id integer
 
@@ -75,7 +75,7 @@ ALTER TABLE Client_Track ADD CONSTRAINT fk_client_track_client FOREIGN KEY (clie
 ALTER TABLE Client_Track ADD CONSTRAINT fk_client_track_track FOREIGN KEY (track_id) REFERENCES Track(id);
 
 CREATE TABLE IF NOT EXISTS Track_Playlist (
-    id integer primary key,
+    id serial primary key,
     track_id integer,
     playlist_id integer
 );
