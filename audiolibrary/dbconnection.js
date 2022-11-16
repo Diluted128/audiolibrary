@@ -1,11 +1,11 @@
 const {Client} = require('pg');
 
 const client = new Client({
-    host: "localhost",
-    user: "postgres",
+    host: 'localhost',
+    user: 'ssi_user',
     port: 5432,
-    password: "admin",
-    database: "airline"
+    password: 'ssi_password',
+    database: 'audiolibrary'
 });
 
 module.exports = client
