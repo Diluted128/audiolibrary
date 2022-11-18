@@ -1,38 +1,41 @@
 const client = require('./dbconnection.js')
 const express = require('express');
 const app = express();
+const bodyParser = require("body-parser");
 
-app.listen(3300, ()=>{
-    console.log("Sever is now listening at port 3000");
+app.use(bodyParser.json());
+
+const port = 3502;
+
+const queries = require('./queries');
+app.listen(port, ()=>{
+    console.log("Sever is now listening at port " + port);
 })
 
 client.connect();
 
-//const bodyParser = require("body-parser");
-// app.use(bodyParser.json());
+app.get('/login', queries.login); // ok zabezpieczone
 
-//
-app.get('/aiecraft', require('./queries'))
+app.get('/client/:id', queries.getClientByID); // ok zabezpieczone
 
-// app.get('/users/:id', (req, res)=>{
-//     client.query(`Select * from users where id=${req.params.id}`, (err, result)=>{
-//         if(!err){
-//             res.send(result.rows);
-//         }
-//     });
-//     client.end;
-// })
+app.get('/playlist/:id', queries.getPlaylistById); // poprawa, zabezpieczone
 
-// app.post('/users', (req, res)=> {
-//     const user = req.body;
-//     let insertQuery = `insert into users(id, firstname, lastname, location)
-//                        values(${user.id}, '${user.firstname}', '${user.lastname}', '${user.location}')`
-//
-//     client.query(insertQuery, (err, result)=>{
-//         if(!err){
-//             res.send('Insertion was successful')
-//         }
-//         else{ console.log(err.message) }
-//     })
-//     client.end;
-// })
+app.get('/client/:id/favourites', queries.getFavouritesTracksByUserId); // ok zabezpieczone
+
+app.get('/artists', queries.getAllArtists); // poprawa
+
+app.get('/artist/:id/albums', queries.getAllAlbumsByArtistId); // ok zabezpiczone
+
+app.get('/tracks', queries.getAllTracks); // poprawa
+
+app.get('/track/:id', queries.getTrackById); // poprawa
+
+app.get('/album/:id/tracks', queries.getTrackByAlbumId); // poprawa
+
+app.post('/artist', queries.insertArtist); // ok zabezpieczone
+
+app.post('/client/favourites', queries.postFavourites) // ok zabezpieczone
+
+app.post('/playlist', queries.createNewPlaylist); // poprawa zabezpieczone
+
+app.post('/album',  queries.postAlbum); // poprawa
