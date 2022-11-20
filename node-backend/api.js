@@ -2,7 +2,9 @@ const client = require('./dbconnection.js')
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
 
 const port = 3502;
@@ -13,8 +15,6 @@ app.listen(port, ()=>{
 })
 
 client.connect();
-
-app.get('/login', queries.login); // ok zabezpieczone
 
 app.get('/client/:id', queries.getClientByID); // ok zabezpieczone
 
@@ -33,6 +33,8 @@ app.get('/track/:id', queries.getTrackById); // poprawa
 app.get('/album/:id/tracks', queries.getTrackByAlbumId); // poprawa
 
 app.get('/playlist/:id/tracks', queries.getTracksByPlaylistId);
+
+app.post('/login', queries.login); // ok zabezpieczone
 
 app.post('/artist', queries.insertArtist); // ok zabezpieczone
 
