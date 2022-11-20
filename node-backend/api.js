@@ -32,10 +32,14 @@ app.get('/track/:id', queries.getTrackById); // poprawa
 
 app.get('/album/:id/tracks', queries.getTrackByAlbumId); // poprawa
 
+app.get('/playlist/:id/tracks', queries.getTracksByPlaylistId);
+
 app.post('/artist', queries.insertArtist); // ok zabezpieczone
 
 app.post('/client/favourites', queries.postFavourites) // ok zabezpieczone
 
 app.post('/playlist', queries.createNewPlaylist); // poprawa zabezpieczone
+
+app.post('/playlist/:id/track', queries.postTrackInPlaylistOfSpecifiedId);
 
 app.post('/album',  queries.postAlbum); // poprawa

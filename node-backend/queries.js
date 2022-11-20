@@ -80,6 +80,43 @@ const insertArtist = (req, res)=> {
     db.end;
 }
 
+const getTracksByPlaylistId = (req, res) => {
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if (value) {
+            const query1 = `SELECT name FROM playlist WHERE id=${req.params.id}`;
+            let playlist;
+            db.query(query1, (err, result)=>{
+                if (result.rows.length === 0) {
+                    res.status(400).json({status: 400, message: "There is no playlists with provided id"});
+                } else {
+                    playlist = result.rows[0];
+                }
+            });
+
+            const query2 = `SELECT t.title, t.type, t.views FROM playlist p JOIN track_playlist tp ON p.id=tp.playlist_id JOIN track t ON tp.track_id=t.id WHERE p.id=${req.params.id}`;
+            db.query(query2, (err, result)=>{
+                if (result.rows.length === 0) {
+                    res.status(400).json({status: 400, message: "There is no playlists with provided id"});
+                    return;
+                } else {
+                    let tracks = result.rows;
+                    res.send({playlist, tracks});
+                }
+            });
+
+
+
+        }
+        else {
+            res.status(400).json({status: 401, message: "Unauthorized"});
+        }
+    })
+
+    db.end;
+}
+
 const postFavourites = (req, res) => {
     const trackId = req.body.id
 
@@ -134,6 +171,54 @@ const getPlaylistById = (req, res) => {
             });
         }
         else{
+            res.status(400).json({status: 401, message: "Unauthorized"});
+        }
+    })
+
+    db.end;
+}
+
+const postTrackInPlaylistOfSpecifiedId = (req, res) => {
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if (value) {
+            // checking whether playlist exists
+            const playlistId = req.params.id;
+            const selectPlaylistQuery = `SELECT * FROM playlist WHERE id = '${playlistId}'`;
+            db.query(selectPlaylistQuery, (err, result) => {
+                if (!err) {
+                    if (result.rowCount <= 0) {
+                        res.status(400).json({status: 400, message: "There is no playlist with provided id"});
+                    }
+                } else {
+                    throw err;
+                }
+            })
+
+            //checking whether track exists
+            const trackId = req.body.trackId;
+            const selectTrackQuery = `SELECT * FROM track WHERE id = '${trackId}'`;
+            db.query(selectTrackQuery, (err, result) => {
+                if (!err) {
+                    if (result.rowCount <= 0) {
+                        res.status(400).json({status: 400, message: "There is no track with provided id"});
+                    }
+                } else {
+                    throw err;
+                }
+            })
+
+            // adding to database
+            const insertQuery = `INSERT INTO track_playlist (track_id, playlist_id) VALUES ('${trackId}', ${playlistId});`;
+            db.query(insertQuery, (err, result) => {
+                if (!err) {
+                    res.status(200).json({status: 200, message: "Track " + trackId + " has been inserted"});
+                } else {
+                    throw err;
+                }
+            });
+        } else {
             res.status(400).json({status: 401, message: "Unauthorized"});
         }
     })
@@ -360,5 +445,7 @@ module.exports = {
     getTrackByAlbumId: getTrackByAlbumId,
     getTrackById: getTrackById,
     getAllAlbumsByArtistId: getAllAlbumsByArtistId,
-    postAlbum: postAlbum
+    postAlbum: postAlbum,
+    postTrackInPlaylistOfSpecifiedId: postTrackInPlaylistOfSpecifiedId,
+    getTracksByPlaylistId: getTracksByPlaylistId
 };

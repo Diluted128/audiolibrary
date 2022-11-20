@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar"
-import "../stylesheets/PlaylistPage.css"
+import "../stylesheets/PlaylistPage.scss"
 function PlaylistPage() {
     return(
         <div className={"homepage"}>
