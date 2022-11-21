@@ -348,7 +348,7 @@ const getAllArtists = (req, res) => {
             })
             db.end();
         } else {
-            res.status(403).json({'status': 403, 'message': "Unauthorized"});
+            res.status(401).json({'status': 401, 'message': "Unauthorized"});
         }
     })
 }
@@ -367,7 +367,7 @@ const getAllTracks = (req, res) => {
                 })
             db.end();
         } else {
-            res.status(403).json({'status': 403, 'message': "Unauthorized"});
+            res.status(401).json({'status': 401, 'message': "Unauthorized"});
         }
     })
 }
@@ -386,7 +386,7 @@ const getAllAlbums = (req, res) => {
                 })
             db.end();
         } else {
-            res.status(403).json({'status': 403, 'message': "Unauthorized"});
+            res.status(401).json({'status': 401, 'message': "Unauthorized"});
         }
     })
 }
@@ -406,7 +406,7 @@ const getArtistById = (req, res) => {
                 })
             db.end();
         } else {
-            res.status(403).json({'status': 403, 'message': "Unauthorized"});
+            res.status(401).json({'status': 401, 'message': "Unauthorized"});
         }
     })
 }
@@ -426,7 +426,7 @@ const getTrackByAlbumId = (req, res) => {
                 })
             db.end();
         } else {
-            res.status(403).json({"status": 403, "message": "Unauthorized"});
+            res.status(401).json({"status": 401, "message": "Unauthorized"});
         }
     })
 }
@@ -445,7 +445,7 @@ const getTrackById = (req, res) => {
                     res.sendStatus(404).json({'message': "Request error"})
                 })
         } else {
-            res.status(403).json({"status": 403, "message": "Unauthorized"});
+            res.status(401).json({"status": 401, "message": "Unauthorized"});
         }
     })
 }
@@ -464,7 +464,7 @@ const getAllAlbumsByArtistId = (req, res) => {
                     console.error(err.stack);
                 })
         } else {
-            res.status(403).json({"status": 403, "message": "Unauthorized"});
+            res.status(401).json({"status": 401, "message": "Unauthorized"});
         }
     })
 }
@@ -501,7 +501,7 @@ const getArtistInfoById = (req, res) => {
                 });
             res.sendStatus(404);
         } else {
-            res.status(403).json({"status": 403, "message": "Unauthorized"});
+            res.status(401).json({"status": 401, "message": "Unauthorized"});
         }
     })
 }
@@ -521,7 +521,7 @@ const postAlbum = (req, res) => {
                     res.sendStatus(400);
                 });
         } else {
-            res.status(403).json({"status": 403, "message": "Unauthorized"});
+            res.status(401).json({"status": 401, "message": "Unauthorized"});
         }
     })
 }
