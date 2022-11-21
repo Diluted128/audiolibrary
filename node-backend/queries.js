@@ -316,117 +316,194 @@ const pushToAlbumQuery = async (name, artist_id) => {
 }
 
 const getAllArtists = (req, res) => {
-    getAllArtistsQuery().then((result) => {
-        res.send(result.rows);
-        console.log('Find all artists');
-    }).catch((err) => {
-        console.error(err.stack);
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getAllArtistsQuery().then((result) => {
+                res.send(result.rows);
+                console.log('Find all artists');
+            }).catch((err) => {
+                console.error(err.stack);
+            })
+            db.end();
+        } else {
+            res.status(403).json({status: 403, message: "Unauthorized"});
+        }
     })
-    db.end();
 }
 
 const getAllTracks = (req, res) => {
-    getAllTracksQuery().then((result) => {
-        res.send(result.rows);
-        console.log('Find all tracks');
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getAllTracksQuery().then((result) => {
+                res.send(result.rows);
+                console.log('Find all tracks');
+            })
+                .catch((err) => {
+                    console.error(err.stack);
+                })
+            db.end();
+        } else {
+            res.status(403).json({status:403, message: "Unauthorized"});
+        }
     })
-        .catch((err) => {
-            console.error(err.stack);
-        })
-    db.end();
 }
 
 const getAllAlbums = (req, res) => {
-    getAllAlbumsQuery().then((result) => {
-        res.send(result.rows);
-        console.log('Find all artists');
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getAllAlbumsQuery().then((result) => {
+                res.send(result.rows);
+                console.log('Find all artists');
+            })
+                .catch((err) => {
+                    console.error(err.stack);
+                })
+            db.end();
+        } else {
+            res.status(403).json({status: 403, message: "Unauthorized"});
+        }
     })
-        .catch((err) => {
-            console.error(err.stack);
-        })
-    db.end();
 }
 
 const getArtistById = (req, res) => {
-    getArtistByIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log("Find artist with id " + req.params.id);
-        })
-        .catch((err) => {
-            res.sendStatus(404).json({'message': "Request error"})
-        })
-    db.end();
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getArtistByIdQuery(req.params.id)
+                .then((result) => {
+                    res.send(result.rows);
+                    console.log("Find artist with id " + req.params.id);
+                })
+                .catch((err) => {
+                    res.sendStatus(404).json({'message': "Request error"})
+                })
+            db.end();
+        } else {
+            res.status(403).json({status:403, message: "Unauthorized"});
+        }
+    })
 }
 
 const getTrackByAlbumId = (req, res) => {
-    getTracksByAlbumIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log("Find track with album_id " + req.params.id);
-        })
-        .catch((err) => {
-            res.sendStatus(404).json({'message': "Request error"})
-        })
-    db.end();
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getTracksByAlbumIdQuery(req.params.id)
+                .then((result) => {
+                    res.send(result.rows);
+                    console.log("Find track with album_id " + req.params.id);
+                })
+                .catch((err) => {
+                    res.sendStatus(404).json({'message': "Request error"})
+                })
+            db.end();
+        } else {
+            res.status(403).json({status: 403, message: "Unauthorized"});
+        }
+    })
 }
 
 const getTrackById = (req, res) => {
-    getTrackByIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log("Find track with id " + req.params.id)
-        })
-        .catch((err) => {
-            res.sendStatus(404).json({'message': "Request error"})
-        })
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getTrackByIdQuery(req.params.id)
+                .then((result) => {
+                    res.send(result.rows);
+                    console.log("Find track with id " + req.params.id)
+                })
+                .catch((err) => {
+                    res.sendStatus(404).json({'message': "Request error"})
+                })
+        } else {
+            res.status(403).json({status: 403, message: "Unauthorized"});
+        }
+    })
 }
 
 const getAllAlbumsByArtistId = (req, res) => {
-    getAlbumsByArtistIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log('Find all artists');
-        })
-        .catch((err) => {
-            console.error(err.stack);
-        })
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            getAlbumsByArtistIdQuery(req.params.id)
+                .then((result) => {
+                    res.send(result.rows);
+                    console.log('Find all artists');
+                })
+                .catch((err) => {
+                    console.error(err.stack);
+                })
+        } else {
+            res.status(403).json({status:403, message: "Unauthorized"});
+        }
+    })
 }
 
 const getArtistInfoById = (req, res) => {
-    var response = getArtistByIdQuery(req.params.id)
-        .then((result) => {
-            console.log(result.rows)
-            result.rows.forEach((row) => {
-                getAlbumsByArtistIdQuery(row.id)
-                    .then(result => {
-                        console.log(result.rows)
-                        result.rows.forEach((row) => {
-                            getTracksByAlbumIdQuery(row.id)
-                                .then((result) => {
-                                    console.log(result.rows)
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            var response = getArtistByIdQuery(req.params.id)
+                .then((result) => {
+                    console.log(result.rows)
+                    result.rows.forEach((row) => {
+                        getAlbumsByArtistIdQuery(row.id)
+                            .then(result => {
+                                console.log(result.rows)
+                                result.rows.forEach((row) => {
+                                    getTracksByAlbumIdQuery(row.id)
+                                        .then((result) => {
+                                            console.log(result.rows)
+                                        })
+                                        .catch((err) => {
+                                            console.log(err.stack)
+                                        })
                                 })
-                                .catch((err) => {console.log(err.stack)})
-                        })
+                            })
+                            .catch((err) => {
+                                console.log(err.stack)
+                            })
                     })
-                    .catch((err) => {console.log(err.stack)})
-            })
-        })
-        .catch((err) => {
-            console.log("not found" + err.stack)
-        });
-    res.sendStatus(404);
+                })
+                .catch((err) => {
+                    console.log("not found" + err.stack)
+                });
+            res.sendStatus(404);
+        } else {
+            res.status(403).json({status: 403, message: "Unauthorized"});
+        }
+    })
 }
 
 const postAlbum = (req, res) => {
-    pushToAlbumQuery(req.body.name, req.body.artist_id)
-        .then((result) => {
-            console.log(result);
-            res.sendStatus(200);
-        })
-        .catch(r => {
-            console.log(r.stack);
-            res.sendStatus(400);});
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value) {
+            pushToAlbumQuery(req.body.name, req.body.artist_id)
+                .then((result) => {
+                    console.log(result);
+                    res.sendStatus(200);
+                })
+                .catch(r => {
+                    console.log(r.stack);
+                    res.sendStatus(400);
+                });
+        } else {
+            res.status(403).json({status:403, message: "Unauthorized"});
+        }
+    })
 }
 
 module.exports = {
