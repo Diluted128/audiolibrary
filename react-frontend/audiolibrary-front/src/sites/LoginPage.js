@@ -36,7 +36,7 @@ function LoginPage() {
                         setWarningMessage("Wrong credentials")
                     } else {
                         Cookies.set('APItoken', data.token);
-                        navigate("/home");
+                        navigate("/");
                     }
                 }
             );

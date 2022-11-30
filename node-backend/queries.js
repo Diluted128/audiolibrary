@@ -253,21 +253,29 @@ const createNewPlaylist = (req, res) => {
     var authToken = req.header('authorization');
     authToken = authToken.substring(authToken.indexOf(' ') + 1);
     security.validateHash(authToken).then(value => {
-        if(value){
+        if (value) {
             const playlistName = req.body.name;
-            const clientId = req.body.clientId;
+            const clientId =  value.id;
 
-            const query = `INSERT INTO playlist (name, client_id) VALUES ('${playlistName}', ${clientId});`;
-            db.query(query, (err, result)=>{
-                if (!err) {
-                    res.status(200).json({status: 200, message: "Playlist " + playlistName + " has been inserted"});
+            const querySelect = `SELECT * FROM playlist WHERE name = '${playlistName}' AND client_id = ${clientId}`;
+            db.query(querySelect, (err, result) => {
+                if (err) {
+                    res.status(400).json({status: 400, message: "Bad request"});
+                } else if (result.rows.length === 0) { // dodaj do bazy jesli nie instieje taka playlista
+                    const queryInsert = `INSERT INTO playlist (name, client_id) VALUES ('${playlistName}', ${clientId});`;
+                    db.query(queryInsert, (err, result) => {
+                        if (!err) {
+                            res.status(200).json({status: 200, message: "Playlist " + playlistName + " has been inserted"});
+                        } else {
+                            res.status(400).json({status: 400, message: "Bad request"});
+                        }
+                    });
                 } else {
-                    throw err;
+                    res.status(409).json({status: 409, message: "Playlist of specified name exists"});
                 }
-            });
-        }
-        else{
-            res.status(400).json({status: 401, message: "Unauthorized"});
+            })
+        } else {
+            res.status(401).json({status: 401, message: "Unauthorized"});
         }
     })
 
