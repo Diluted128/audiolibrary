@@ -8,7 +8,7 @@ function Navbar() {
         <div className={"navbar"}>
             <div className={"navbar__navbar-item"}>
                 <img src={homeIcon}/>
-                <a href="/home">Home</a>
+                <a href="/">Home</a>
             </div>
             <div className={"navbar__navbar-item"}>
                 <img src={heartIcon}/>
@@ -16,7 +16,7 @@ function Navbar() {
             </div>
             <div className={"navbar__navbar-item"}>
                 <img src={addIcon}/>
-                <a href="/addplaylist">Add playlist</a>
+                <a href="/add-playlist">Add playlist</a>
             </div>
             <div className={"navbar__line"}></div>
             <div className={"navbar__playlist"}>
