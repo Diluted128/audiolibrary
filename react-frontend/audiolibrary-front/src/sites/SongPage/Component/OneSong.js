@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Cookies from "js-cookie";
 
 
 function OneSong(props) {
@@ -16,6 +17,21 @@ function OneSong(props) {
     const changeFavorite = () =>{
         if(isFavorite == false){
             setIsFavorite(true)
+
+            fetch('http://localhost:3507/client/favourites', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': "application/json",
+                    'Authorization': 'Bearer ' + Cookies.get('APItoken')
+                },
+                body: JSON.stringify({id: props.data.id})
+            })
+                .then(res => {
+                    return res.json()
+                })
+                .then(data => {
+                    console.log(data);
+                });
         }else{
             setIsFavorite(false)
         }
@@ -25,22 +41,22 @@ function OneSong(props) {
             <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
                 <Grid item xs={0.5} sx={{display: 'flex', justifyContent: 'center',  alignContent: 'center'}}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 1}}>
-                            1
+                        {props.index + 1}
                     </Typography>
                 </Grid>
                 <Grid item xs={8}>
                    <Box sx={{ml:0.5}}>
                    <Typography sx={{color: 'white', fontSize: "15px"}}>
-                        {props.temat}
+                       {props.data.title}
                     </Typography>
                     <Typography sx={{color: 'gray', fontSize: "12px"}}>
-                        <CheckBoxIcon sx={{width: '18px', height: '18px'}}/> Foushee, Lil Uzi Vert
+                        <CheckBoxIcon sx={{width: '18px', height: '18px'}}/> {props.data.type}
                     </Typography>
                    </Box>
                 </Grid>
                 <Grid item xs={2.5}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 1}}>
-                            1,123
+                        {props.data.views}
                     </Typography>
                 </Grid>
                 <Grid item xs={0.5}>

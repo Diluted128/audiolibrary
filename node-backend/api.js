@@ -2,10 +2,12 @@ const client = require('./dbconnection.js')
 const express = require('express');
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
 
-const port = 3502;
+const port = 3507;
 
 const queries = require('./queries');
 app.listen(port, ()=>{
@@ -14,25 +16,23 @@ app.listen(port, ()=>{
 
 client.connect();
 
-app.get('/login', queries.login); // ok zabezpieczone
-
 app.get('/client/:id', queries.getClientByID); // ok zabezpieczone
 
 app.get('/playlist/:id', queries.getPlaylistById); // poprawa, zabezpieczone
 
-app.get('/client/:id/favourites', queries.getFavouritesTracksByUserId); // ok zabezpieczone
+app.get('/playlists', queries.getAllPlaylists); // poprawa, zabezpieczone
+
+app.get('/favourites', queries.getFavouritesTracksByUserId); // ok zabezpieczone
 
 app.get('/artists', queries.getAllArtists); // poprawa
 
 app.get('/artist/:id/albums', queries.getAllAlbumsByArtistId); // ok zabezpiczone
 
-app.get('/tracks', queries.getAllTracks); // poprawa
-
-app.get('/track/:id', queries.getTrackById); // poprawa
-
 app.get('/album/:id/tracks', queries.getTrackByAlbumId); // poprawa
 
 app.get('/playlist/:id/tracks', queries.getTracksByPlaylistId);
+
+app.post('/login', queries.login); // ok zabezpieczone
 
 app.post('/artist', queries.insertArtist); // ok zabezpieczone
 

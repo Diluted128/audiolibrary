@@ -12,14 +12,14 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 
-function OneFavourite() {
+function OneFavourite(props) {
     
 
     return(
         <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
                 <Grid item xs={0.5} sx={{display: 'flex', justifyContent: 'center',  alignContent: 'center'}}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>
-                        1
+                        {props.index + 1}
                     </Typography>
                 </Grid>
                 <Grid item xs={5}>
@@ -34,7 +34,7 @@ function OneFavourite() {
                         />
                         <Box sx={{ml:2, mt: 1}}>
                         <Typography sx={{color: 'white', fontSize: "15px"}}>
-                                Baby Pluto
+                                {props.data.title}
                             </Typography>
                             <Typography sx={{color: 'gray', fontSize: "12px"}}>
                                 <CheckBoxIcon sx={{width: '18px', height: '18px'}}/> Lil Uzi Vert
@@ -44,12 +44,12 @@ function OneFavourite() {
                 </Grid>
                 <Grid item xs={3}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>
-                            Eternal Atake
+                        {props.data.type}
                     </Typography>
                 </Grid>
                 <Grid item xs={3}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>
-                            2 minutes ago
+                        {props.data.views}
                     </Typography>
                 </Grid>
                 <Grid item xs={0.5}>

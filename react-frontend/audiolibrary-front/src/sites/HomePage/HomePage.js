@@ -13,8 +13,7 @@ function HomePage() {
                 sx={{
                     width: 1,
                     height: 300,
-                    pl: 5
-                    // backgroundColor: 'pink'
+                    pl: 5,
                 }}
             >
                 <List/>
