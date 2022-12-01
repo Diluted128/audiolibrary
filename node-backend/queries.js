@@ -282,41 +282,6 @@ const createNewPlaylist = (req, res) => {
     db.end;
 }
 
-const getAllArtistsQuery = async () => {
-    var query = await db.query('Select * from Artist');
-    return query;
-}
-
-const getAllTracksQuery = async () => {
-    var query = await db.query('Select * from Tracks');
-    return query;
-}
-
-const getAllAlbumsQuery = async () => {
-    var query = await db.query('Select * from Album');
-    return query;
-}
-
-const getArtistByIdQuery = async (id) => {
-    var response = await db.query('SELECT * FROM Artist WHERE id=' + id);
-    return response;
-}
-
-const getTrackByIdQuery = async (id) => {
-    var response = await db.query('SELECT * FROM Track WHERE id=' + id);
-    return response;
-}
-
-const getAlbumsByArtistIdQuery = async (id) => {
-    var response = await db.query('SELECT * FROM Album WHERE artist_id=' + id);
-    return response;
-}
-
-const getTracksByAlbumIdQuery = async (id) => {
-    var response = await db.query('SELECT * FROM Track WHERE album_id=' + id);
-    return response;
-}
-
 const pushToAlbumQuery = async (name, artist_id) => {
     return await db.query('INSERT INTO Album(name, artist_id) VALUES ("' + name + '",'+artist_id+')')
         .then((result) => console.log("success push new album to database"))
@@ -324,106 +289,69 @@ const pushToAlbumQuery = async (name, artist_id) => {
 }
 
 const getAllArtists = (req, res) => {
-    getAllArtistsQuery().then((result) => {
-        res.send(result.rows);
-        console.log('Find all artists');
-    }).catch((err) => {
-        console.error(err.stack);
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value){
+            db.query('Select * from Artist', (err, result)=>{
+                if(result.rows.length === 0) {
+                    res.status(400).json({status: 400, message: "There is no artists"});
+                    return;
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+        else{
+            res.status(400).json({status: 401, message: "Unauthorized"});
+        }
     })
-    db.end();
-}
 
-const getAllTracks = (req, res) => {
-    getAllTracksQuery().then((result) => {
-        res.send(result.rows);
-        console.log('Find all tracks');
-    })
-        .catch((err) => {
-            console.error(err.stack);
-        })
-    db.end();
-}
-
-const getAllAlbums = (req, res) => {
-    getAllAlbumsQuery().then((result) => {
-        res.send(result.rows);
-        console.log('Find all artists');
-    })
-        .catch((err) => {
-            console.error(err.stack);
-        })
-    db.end();
-}
-
-const getArtistById = (req, res) => {
-    getArtistByIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log("Find artist with id " + req.params.id);
-        })
-        .catch((err) => {
-            res.sendStatus(404).json({'message': "Request error"})
-        })
-    db.end();
-}
-
-const getTrackByAlbumId = (req, res) => {
-    getTracksByAlbumIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log("Find track with album_id " + req.params.id);
-        })
-        .catch((err) => {
-            res.sendStatus(404).json({'message': "Request error"})
-        })
-    db.end();
-}
-
-const getTrackById = (req, res) => {
-    getTrackByIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log("Find track with id " + req.params.id)
-        })
-        .catch((err) => {
-            res.sendStatus(404).json({'message': "Request error"})
-        })
+    db.end;
 }
 
 const getAllAlbumsByArtistId = (req, res) => {
-    getAlbumsByArtistIdQuery(req.params.id)
-        .then((result) => {
-            res.send(result.rows);
-            console.log('Find all artists');
-        })
-        .catch((err) => {
-            console.error(err.stack);
-        })
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value){
+            db.query('SELECT * FROM Album WHERE artist_id=' + req.params.id, (err, result)=>{
+                if(result.rows.length === 0) {
+                    res.status(400).json({status: 400, message: "There is no albums"});
+                    return;
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+        else{
+            res.status(400).json({status: 401, message: "Unauthorized"});
+        }
+    })
+
+    db.end;
 }
 
-const getArtistInfoById = (req, res) => {
-    var response = getArtistByIdQuery(req.params.id)
-        .then((result) => {
-            console.log(result.rows)
-            result.rows.forEach((row) => {
-                getAlbumsByArtistIdQuery(row.id)
-                    .then(result => {
-                        console.log(result.rows)
-                        result.rows.forEach((row) => {
-                            getTracksByAlbumIdQuery(row.id)
-                                .then((result) => {
-                                    console.log(result.rows)
-                                })
-                                .catch((err) => {console.log(err.stack)})
-                        })
-                    })
-                    .catch((err) => {console.log(err.stack)})
-            })
-        })
-        .catch((err) => {
-            console.log("not found" + err.stack)
-        });
-    res.sendStatus(404);
+const getTrackByAlbumId = (req, res) => {
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value){
+            db.query('SELECT * FROM Track WHERE album_id=' + req.params.id, (err, result)=>{
+                if(result.rows.length === 0) {
+                    res.status(400).json({status: 400, message: "There is no tracks"});
+                    return;
+                } else {
+                    res.send(result.rows);
+                }
+            });
+        }
+        else{
+            res.status(400).json({status: 401, message: "Unauthorized"});
+        }
+    })
+
+    db.end;
 }
 
 const postAlbum = (req, res) => {
@@ -462,13 +390,8 @@ module.exports = {
     insertArtist: insertArtist,
     login: login,
     postFavourites: postFavourites,
-    getAllTracks: getAllTracks,
     getAllArtists: getAllArtists,
-    getAllAlbums: getAllAlbums,
-    getArtistById: getArtistById,
-    getArtistInfoById: getArtistInfoById,
     getTrackByAlbumId: getTrackByAlbumId,
-    getTrackById: getTrackById,
     getAllAlbumsByArtistId: getAllAlbumsByArtistId,
     postAlbum: postAlbum,
     postTrackInPlaylistOfSpecifiedId: postTrackInPlaylistOfSpecifiedId,
