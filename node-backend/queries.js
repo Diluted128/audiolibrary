@@ -437,6 +437,23 @@ const postAlbum = (req, res) => {
             res.sendStatus(400);});
 }
 
+const getAllPlaylists = (req, res) => {
+
+    var authToken = req.header('authorization');
+    authToken = authToken.substring(authToken.indexOf(' ') + 1);
+    security.validateHash(authToken).then(value => {
+        if(value){
+            db.query(`SELECT * FROM PLAYLIST`, (err, result) => {
+                res.send(result.rows);
+            });
+        }
+        else{
+            res.status(400).json({status: 401, message: "Unauthorized"});
+        }
+    })
+    db.end;
+};
+
 module.exports = {
     getPlaylistById: getPlaylistById,
     getFavouritesTracksByUserId: getFavouritesTracksByUserId,
@@ -455,5 +472,6 @@ module.exports = {
     getAllAlbumsByArtistId: getAllAlbumsByArtistId,
     postAlbum: postAlbum,
     postTrackInPlaylistOfSpecifiedId: postTrackInPlaylistOfSpecifiedId,
-    getTracksByPlaylistId: getTracksByPlaylistId
+    getTracksByPlaylistId: getTracksByPlaylistId,
+    getAllPlaylists: getAllPlaylists
 };
