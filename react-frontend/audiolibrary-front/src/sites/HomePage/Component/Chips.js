@@ -7,7 +7,7 @@ import kotek from '../../../images/kotek.jpg'
 import kotek2 from '../../../images/kotek2.jpg'
 
 
-function Chips() {
+function Chips(props) {
     return(
         <Box onClick = {()=>(console.log('przechodze do nastepnej strony'))}
         sx={{
@@ -23,7 +23,7 @@ function Chips() {
               },
         }}
     >
-        <Avatar sx={{width: 170, height: 170, m: 'auto', mt: '15px', borderRadius: "10%"}} alt="Remy Sharp" src={kotek2} />
+        <Avatar sx={{width: 170, height: 170, m: 'auto', mt: '15px', borderRadius: "10%"}} alt="Remy Sharp" src={props.artist[props.count]} />
         <Typography sx={{color: 'white', m: 1, fontSize: 25}}>Skoda Felicja</Typography>
         <Typography sx={{color: 'white', m: 0.5,fontSize: 10}}>skoda felicja to najzajebistrze auto jakie znam</Typography>
     </Box>

@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../components/Navbar"
 import "../../stylesheets/HomePage.scss"
 import Box from '@mui/material/Box';
-import skoda from '../../images/skoda.png'
+import scena2 from '../../images/scena2.jpg'
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
@@ -15,7 +15,7 @@ function HomePage() {
         <div className={"homepage"}>
             <Navbar/>
             <div className={"content"}>
-                <div style={{ backgroundImage: `url(${skoda})`, width: '100vw', height:'300px', backgroundPosition: 'center',
+                <div style={{ backgroundImage: `url(${scena2})`, width: '100vw', height:'300px', backgroundPosition: 'center',
                             backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
                     <div style={{paddingTop: '120px'}}>
                         <Typography sx={{color: 'white', ml: 3, fontSize: 95}}>Skoda Felicja</Typography>
