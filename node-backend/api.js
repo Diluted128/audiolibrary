@@ -22,7 +22,7 @@ app.get('/playlist/:id', queries.getPlaylistById); // poprawa, zabezpieczone
 
 app.get('/playlists', queries.getAllPlaylists); // poprawa, zabezpieczone
 
-app.get('/client/:id/favourites', queries.getFavouritesTracksByUserId); // ok zabezpieczone
+app.get('/favourites', queries.getFavouritesTracksByUserId); // ok zabezpieczone
 
 app.get('/artists', queries.getAllArtists); // poprawa
 

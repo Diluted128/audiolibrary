@@ -3,9 +3,10 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Chips from './Chips'
 import Cookies from "js-cookie";
-import {Link, redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function List() {
+
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
@@ -20,7 +21,6 @@ function List() {
                 return res.json()
             })
             .then(data => {
-                console.log(data);
                 setArtists(data)
             });
     }, [])
