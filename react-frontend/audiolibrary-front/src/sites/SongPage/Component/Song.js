@@ -1,17 +1,30 @@
-import React from "react";
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import CardMedia from '@mui/material/CardMedia';
 import skoda from '../../../images/skoda.png'
 import Typography from '@mui/material/Typography';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import ArrowCircleDown from '@mui/icons-material/ArrowCircleDown'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SongList from "./SongList";
 
 
 
+
 function Song() {
+
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const changeFavorite = () =>{
+        if(isFavorite == false){
+            setIsFavorite(true)
+        }else{
+            setIsFavorite(false)
+        }
+    }
+
     return(
         <Box sx={{backgroundColor: 'rgb(0, 0, 0, 0.1)', width: 1 }}>
             <Box sx={{p: 4, display: 'flex', width: 1}}>
@@ -31,7 +44,12 @@ function Song() {
                         Single · 2022 · 1 song
                     </Typography>
                     <PlayCircleIcon sx={{width: 50, height: 50, ml: 3, mt: 3, color: 'white'}}/>
-                    <FavoriteBorder sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'gray'}}/>
+                    {/* <FavoriteBorder sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'gray'}}/> */}
+                    {isFavorite ? 
+                            <FavoriteIcon onClick={changeFavorite} sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'green'}}/>
+                    : 
+                            <FavoriteBorder onClick={changeFavorite} sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'gray'}} /> }
+
                     <ArrowCircleDown sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'gray'}}/>
                     <MoreHorizIcon sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'gray'}}/>
                 </Box>

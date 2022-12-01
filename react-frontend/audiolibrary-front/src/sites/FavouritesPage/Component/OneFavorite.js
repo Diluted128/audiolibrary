@@ -13,15 +13,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 function OneFavourite() {
-    const [isFavorite, setIsFavorite] = useState(false);
-
-    const changeFavorite = () =>{
-        if(isFavorite == false){
-            setIsFavorite(true)
-        }else{
-            setIsFavorite(false)
-        }
-    }
+    
 
     return(
         <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
@@ -55,20 +47,10 @@ function OneFavourite() {
                             Eternal Atake
                     </Typography>
                 </Grid>
-                <Grid item xs={2.5}>
+                <Grid item xs={3}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>
                             2 minutes ago
                     </Typography>
-                </Grid>
-                <Grid item xs={0.5}>
-                    {isFavorite ? 
-                    <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>
-                            <FavoriteIcon onClick={changeFavorite} sx={{color: 'green'}}/>
-                    </Typography> 
-                    : 
-                    <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>
-                            <FavoriteBorder onClick={changeFavorite}/>
-                    </Typography> }
                 </Grid>
                 <Grid item xs={0.5}>
                     <Typography sx={{ color: 'gray', fontSize: "15px", mt: 2.5}}>

@@ -5,8 +5,6 @@ import Chips from './Chips'
 
 function List() {
     const artistList = ['skoda','kotek','kotek2', 4, 5]
-
-
     return(
         <Box>
             <Typography mt={2} ml={5} sx={{color: 'white', fontSize: "40px"}}>
