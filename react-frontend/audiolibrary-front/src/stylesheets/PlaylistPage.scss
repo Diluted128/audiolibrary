@@ -2,9 +2,16 @@
     width: 100vw;
     height: 100vh;
     display: flex;
+
+    &__content{
+        width: 80vw;
+        height: 100vh;
+        padding: 50px;
+    }
+
+    &__content > p{
+        font-size: 60px;
+        color: white;
+    }
 }
 
-.content{
-    width: 80vw;
-    height: 100vh;
-}

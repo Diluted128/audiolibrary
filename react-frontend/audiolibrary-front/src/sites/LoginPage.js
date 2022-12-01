@@ -18,12 +18,12 @@ function LoginPage() {
             login: "",
             password: ""
         }
-        console.log(inputs[0].getAttribute('jsonattribute'));
+
         for (let i = 0; i < inputs.length; i++) {
             user[inputs[i].getAttribute('jsonattribute')] = inputs[i].value
         }
 
-        fetch('http://localhost:3502/login', {
+        fetch('http://localhost:3504/login', {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json"
@@ -32,6 +32,7 @@ function LoginPage() {
         })
             .then(res => {return res.json()})
             .then(data => {
+                console.log(data)
                     if (data.status === 401) {
                         setWarningMessage("Wrong credentials")
                     } else {

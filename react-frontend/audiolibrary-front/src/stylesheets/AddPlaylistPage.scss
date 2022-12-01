@@ -22,19 +22,19 @@
 }
 
 .input-playlist-name {
-    width: 200px;
+    width: 400px;
     padding: 5px;
     font-size: 18px;
     background: transparent;
     color: aliceblue;
     border: none;
-    outline: none; border:none; border-bottom: 1px solid olive;
-    margin-top: 8px;
+    outline: none; border:none; border-bottom: 1px solid aliceblue;
+    margin-top: 20px;
     margin-bottom: 7px;
 }
 
 .input-playlist-name:focus {
-    box-shadow: 0 1px 0 0 blue;
+    box-shadow: 0 1px 0 0 #79df60;
 }
 
 .response-content {
@@ -42,10 +42,12 @@
 }
 
 .submit-button {
-    width: 80px;
+    width: 100px;
     padding: 5px;
     font-size: 12px;
-    background-color: darkgray;
+    background-color: #79df60;
+    border: none;
+    border-radius: 10px;
     transition-duration: 0.5s;
 }
 

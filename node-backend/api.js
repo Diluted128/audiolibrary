@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
 
-const port = 3506;
+const port = 3507;
 
 const queries = require('./queries');
 app.listen(port, ()=>{
@@ -27,10 +27,6 @@ app.get('/client/:id/favourites', queries.getFavouritesTracksByUserId); // ok za
 app.get('/artists', queries.getAllArtists); // poprawa
 
 app.get('/artist/:id/albums', queries.getAllAlbumsByArtistId); // ok zabezpiczone
-
-app.get('/tracks', queries.getAllTracks); // poprawa
-
-app.get('/track/:id', queries.getTrackById); // poprawa
 
 app.get('/album/:id/tracks', queries.getTrackByAlbumId); // poprawa
 
