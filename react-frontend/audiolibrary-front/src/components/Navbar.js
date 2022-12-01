@@ -12,7 +12,7 @@ function Navbar() {
 
     useEffect(() => {
 
-        fetch('http://localhost:3506/playlists', {
+        fetch('http://localhost:3507/playlists', {
             method: 'GET',
             headers: {
                 'Content-Type': "application/json",

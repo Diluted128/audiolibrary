@@ -111,6 +111,7 @@ const getTracksByPlaylistId = (req, res) => {
 }
 
 const postFavourites = (req, res) => {
+    console.log(req.body.id);
     const trackId = req.body.id
 
     if (typeof trackId !== "number") {
@@ -126,7 +127,7 @@ const postFavourites = (req, res) => {
                 .then((result) => {
                     if (result.lenght !== 0) {
                         db.query(`insert into client_track(track_id, client_id)
-                                  values (${value.id}, '${trackId}')`, (err, result) => {
+                                  values (${trackId}, '${value.id}')`, (err, result) => {
                             if (err) {
                                 throw err;
                             } else {
@@ -227,7 +228,7 @@ const getFavouritesTracksByUserId = (req, res) => {
     authToken = authToken.substring(authToken.indexOf(' ') + 1);
     security.validateHash(authToken).then(value => {
         if(value){
-            const query = `SELECT ct.track_id, t.title, t.type, t.views FROM client c JOIN client_track ct ON c.id=ct.client_id JOIN track t ON ct.track_id=t.id WHERE c.id=${req.params.id}`;
+            const query = `SELECT ct.track_id, t.title, t.type, t.views FROM client c JOIN client_track ct ON c.id=ct.client_id JOIN track t ON ct.track_id=t.id WHERE c.id=${value.id}`;
             db.query(query, (err, result)=>{
                 if(result.rows.length === 0) {
                     res.status(400).json({status: 400, message: "There is no favourites tracks for user with provided id"});
@@ -312,12 +313,7 @@ const getAllAlbumsByArtistId = (req, res) => {
     security.validateHash(authToken).then(value => {
         if(value){
             db.query('SELECT * FROM Album WHERE artist_id=' + req.params.id, (err, result)=>{
-                if(result.rows.length === 0) {
-                    res.status(400).json({status: 400, message: "There is no albums"});
-                    return;
-                } else {
                     res.send(result.rows);
-                }
             });
         }
         else{
