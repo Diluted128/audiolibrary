@@ -15,7 +15,7 @@ const AddPlaylistPage = () => {
 
         const responseContentDiv = document.getElementsByClassName("response-content")[0];
 
-        axios.post('http://localhost:3504/playlist', postPlaylistBody, {
+        axios.post('http://localhost:3506/playlist', postPlaylistBody, {
             headers: {
                 'Authorization' : `Bearer ${Cookies.get('APItoken')}`,
                 'Content-Type': 'application/json'

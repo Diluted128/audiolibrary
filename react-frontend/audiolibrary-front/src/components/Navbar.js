@@ -12,7 +12,7 @@ function Navbar() {
 
     useEffect(() => {
 
-        fetch('http://localhost:3504/playlists', {
+        fetch('http://localhost:3506/playlists', {
             method: 'GET',
             headers: {
                 'Content-Type': "application/json",
@@ -43,9 +43,9 @@ function Navbar() {
             </div>
             <div className={"navbar__line"}></div>
             <div className={"navbar__playlist"}>
-                {playlists.map((playlsit) => (
+                {playlists.map((playlist) => (
                     <div>
-                        <Link to={"/playlist"} state={{"playlist": playlsit}}>{playlsit.name}</Link>
+                        <Link to={"/playlist"} state={{"playlist": playlist}}>{playlist.name}</Link>
                     </div>
                 ))}
             </div>

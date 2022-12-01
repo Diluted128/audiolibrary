@@ -95,19 +95,12 @@ const getTracksByPlaylistId = (req, res) => {
                 }
             });
 
-            const query2 = `SELECT t.title, t.type, t.views FROM playlist p JOIN track_playlist tp ON p.id=tp.playlist_id JOIN track t ON tp.track_id=t.id WHERE p.id=${req.params.id}`;
+            const query2 = `SELECT t.title, a.firstname, a.lastname, t.type, t.views FROM playlist p JOIN track_playlist tp ON p.id=tp.playlist_id JOIN track t ON tp.track_id=t.id JOIN artist a ON t.artist_id=a.id WHERE p.id=${req.params.id}`;
             db.query(query2, (err, result)=>{
-                if (result.rows.length === 0) {
-                    res.status(400).json({status: 400, message: "There is no playlists with provided id"});
-                    return;
-                } else {
-                    let tracks = result.rows;
-                    res.send({playlist, tracks});
-                }
+                let tracks = result.rows;
+                res.send({playlist, tracks});
             });
-
-
-
+            
         }
         else {
             res.status(400).json({status: 401, message: "Unauthorized"});
