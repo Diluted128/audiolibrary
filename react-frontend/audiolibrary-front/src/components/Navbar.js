@@ -1,14 +1,37 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "../stylesheets/Navbar.scss"
 import heartIcon from "../images/heart.png"
 import homeIcon from "../images/home.png"
 import addIcon from "../images/add.png"
+import Cookies from "js-cookie"
+import {Link} from "react-router-dom";
+
 function Navbar() {
+
+    const [playlists, setPlayLists] = useState([]);
+
+    useEffect(() => {
+
+        fetch('http://localhost:3504/playlists', {
+            method: 'GET',
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': 'Bearer ' + Cookies.get('APItoken')
+            }
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                setPlayLists(data)
+            });
+    }, [])
+
     return(
         <div className={"navbar"}>
             <div className={"navbar__navbar-item"}>
                 <img src={homeIcon}/>
-                <a href="/home">Home</a>
+                <a href="/">Home</a>
             </div>
             <div className={"navbar__navbar-item"}>
                 <img src={heartIcon}/>
@@ -16,22 +39,15 @@ function Navbar() {
             </div>
             <div className={"navbar__navbar-item"}>
                 <img src={addIcon}/>
-                <a href="/addplaylist">Add playlist</a>
+                <a href="/add-playlist">Add playlist</a>
             </div>
             <div className={"navbar__line"}></div>
             <div className={"navbar__playlist"}>
-                <div>
-                    <a href={"/playlist"}>Moja playlista1</a>
-                </div>
-                <div>
-                    <a href={"/playlist"}>Moja playlista2</a>
-                </div>
-                <div>
-                    <a href={"/playlist"}>Moja playlista3</a>
-                </div>
-                <div>
-                    <a href={"/playlist"}>Moja playlista4</a>
-                </div>
+                {playlists.map((playlsit) => (
+                    <div>
+                        <Link to={"/playlist"} state={{"playlist": playlsit}}>{playlsit.name}</Link>
+                    </div>
+                ))}
             </div>
         </div>
     )

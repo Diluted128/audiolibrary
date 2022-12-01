@@ -12,9 +12,9 @@ function App() {
   return (
       <Router>
         <Routes>
-          <Route path="/home" element={<HomePage/>}/>
+          <Route path="/" element={<HomePage/>}/>
             <Route path="/favourites" element={<FavouritesPage/>}/>
-            <Route path="/addplaylist" element={<AddPlaylistPage/>}/>
+            <Route path="/add-playlist" element={<AddPlaylistPage/>}/>
             <Route path="/playlist" element={<PlaylistPage/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/artist" element={<ArtistPage/>}/>
