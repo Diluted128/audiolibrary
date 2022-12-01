@@ -3,7 +3,7 @@ const {Client} = require('pg');
 const db = new Client({
     host: "localhost",
     user: "ssi_user",
-    port: 5433,
+    port: 5432,
     password: "ssi_password",
     database: "audiolibrary"
 });
