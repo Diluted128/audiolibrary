@@ -14,6 +14,7 @@ function Chips() {
             minWidth: 200,
             height: 300,
             mr: '50px',
+            mb: '20px',
             borderRadius: "2%",
             boxShadow: '5px 5px 5px rgb(23, 23, 23)',
             backgroundColor: 'rgb(27, 27, 27, 0.4)',

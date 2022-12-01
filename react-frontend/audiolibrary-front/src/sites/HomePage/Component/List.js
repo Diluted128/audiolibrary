@@ -12,7 +12,7 @@ function List() {
             <Typography mt={2} ml={5} sx={{color: 'white', fontSize: "40px"}}>
                 Poznaj naszych artystów
             </Typography>
-            <Box sx={{display: 'flex', m: '10px' }}>
+            <Box sx={{display: 'flex', m: '10px', flexWrap: 'wrap', width: 1 }}>
             {artistList.map(el =>(<Chips img={el}/>))}
             </Box>
         </Box>

@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 
-function OneSong() {
+function OneSong(props) {
     return(
             <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
                 <Grid item xs={0.5} sx={{display: 'flex', justifyContent: 'center',  alignContent: 'center'}}>
@@ -18,7 +18,7 @@ function OneSong() {
                 <Grid item xs={8}>
                    <Box sx={{ml:0.5}}>
                    <Typography sx={{color: 'white', fontSize: "15px"}}>
-                        spend the money (feat. Lili Uzil Vert)
+                        {props.temat}
                     </Typography>
                     <Typography sx={{color: 'gray', fontSize: "12px"}}>
                         <CheckBoxIcon sx={{width: '18px', height: '18px'}}/> Foushee, Lil Uzi Vert
