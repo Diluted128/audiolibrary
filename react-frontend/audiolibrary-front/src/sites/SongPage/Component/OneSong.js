@@ -47,6 +47,10 @@ function OneSong(props) {
                 <Grid item xs={8}>
                    <Box sx={{ml:0.5}}>
                    <Typography sx={{color: 'white', fontSize: "15px"}}>
+                        {props.title}
+                    </Typography>
+                    <Typography sx={{color: 'gray', fontSize: "12px"}}>
+                        <CheckBoxIcon sx={{width: '18px', height: '18px'}}/> {props.firstname} {props.lastname}
                        {props.data.title}
                     </Typography>
                     <Typography sx={{color: 'gray', fontSize: "12px"}}>
