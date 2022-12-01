@@ -316,12 +316,7 @@ const getAllAlbumsByArtistId = (req, res) => {
     security.validateHash(authToken).then(value => {
         if(value){
             db.query('SELECT * FROM Album WHERE artist_id=' + req.params.id, (err, result)=>{
-                if(result.rows.length === 0) {
-                    res.status(400).json({status: 400, message: "There is no albums"});
-                    return;
-                } else {
                     res.send(result.rows);
-                }
             });
         }
         else{
