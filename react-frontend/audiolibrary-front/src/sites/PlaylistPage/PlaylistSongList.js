@@ -11,7 +11,7 @@ function PlaylistSongList(props) {
     let counter = 1;
 
     return(
-        <Box sx={{backgroundColor: 'rgb(0, 0, 0, 0.1)'}}>
+        <Box sx={{backgroundColor: 'rgb(0, 0, 0, 0.1)', mt: 4}}>
             <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
                 <Grid item xs={0.5} sx={{display: 'flex', justifyContent: 'center'}}>
                     #

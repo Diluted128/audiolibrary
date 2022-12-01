@@ -100,7 +100,7 @@ const getTracksByPlaylistId = (req, res) => {
                 let tracks = result.rows;
                 res.send({playlist, tracks});
             });
-            
+
         }
         else {
             res.status(400).json({status: 401, message: "Unauthorized"});
@@ -190,12 +190,22 @@ const postTrackInPlaylistOfSpecifiedId = (req, res) => {
             })
 
             //checking whether track exists
-            const trackId = req.body.trackId;
-            const selectTrackQuery = `SELECT * FROM track WHERE id = '${trackId}'`;
+            const trackName = req.body.trackName; // instead of trackId
+            const selectTrackQuery = `SELECT * FROM track WHERE title = '${trackName}'`;
+            let fetchedTrackId;
             db.query(selectTrackQuery, (err, result) => {
                 if (!err) {
                     if (result.rowCount <= 0) {
-                        res.status(400).json({status: 400, message: "There is no track with provided id"});
+                        res.status(400).json({status: 400, message: "There is no track with provided name"});
+                    } else {
+                        const insertQuery = `INSERT INTO track_playlist (track_id, playlist_id) VALUES ('${result.rows[0].id}', ${playlistId});`;
+                        db.query(insertQuery, (err, result) => {
+                            if (!err) {
+                                res.status(200).json({status: 200, message: "Track " + trackName + " has been inserted"});
+                            } else {
+                                throw err;
+                            }
+                        });
                     }
                 } else {
                     throw err;
@@ -203,14 +213,7 @@ const postTrackInPlaylistOfSpecifiedId = (req, res) => {
             })
 
             // adding to database
-            const insertQuery = `INSERT INTO track_playlist (track_id, playlist_id) VALUES ('${trackId}', ${playlistId});`;
-            db.query(insertQuery, (err, result) => {
-                if (!err) {
-                    res.status(200).json({status: 200, message: "Track " + trackId + " has been inserted"});
-                } else {
-                    throw err;
-                }
-            });
+  
         } else {
             res.status(400).json({status: 401, message: "Unauthorized"});
         }
