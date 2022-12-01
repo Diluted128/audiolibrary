@@ -7,7 +7,7 @@ const cors = require('cors');
 app.use(cors());
 app.use(bodyParser.json());
 
-const port = 3507;
+const port = 3000;
 
 const queries = require('./queries');
 app.listen(port, ()=>{

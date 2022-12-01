@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const db = require("./dbconnection");
 
-const secret = "ssi_projekt";
+const secret = process.env.DATABASE_PASSW;
 
 const generateHash = (phrase) => {
     return crypto.createHmac('sha256', secret)

@@ -1,8 +1,19 @@
 version: '1.0'
 
 services:
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_USER: ssi_user
+      DATABASE_PORT: 5432
+      DATABASE_PASSW: ssi_password
+      DATABASE_NAME: audiolibrary
   postgres:
-        build: .
         image: postgres
         environment:
           POSTGRES_DB: audiolibrary
