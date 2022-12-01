@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import skoda from '../../../images/skoda.png'
@@ -8,12 +8,33 @@ import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import ArrowCircleDown from '@mui/icons-material/ArrowCircleDown'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SongList from "./SongList";
+import Cookies from "js-cookie";
 
 
 
-function Song() {
+function Song(props) {
+
+    const [tracks, setTracks] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3507/album/' + props.data.id + "/tracks", {
+            method: 'GET',
+            headers: {
+                'Content-Type': "application/json",
+                'Authorization': 'Bearer ' + Cookies.get('APItoken')
+            }
+        })
+            .then(res => {
+                return res.json()
+            })
+            .then(data => {
+                console.log(data);
+                setTracks(data)
+            });
+    }, [])
+
     return(
-        <Box sx={{backgroundColor: 'rgb(0, 0, 0, 0.1)', width: 1 }}>
+        <Box>
             <Box sx={{p: 4, display: 'flex', width: 1}}>
                 <CardMedia
                     sx={{height: 200, width: 200}}
@@ -25,7 +46,7 @@ function Song() {
                 />
                 <Box sx={{ height: 10, width: '90%'}}>
                     <Typography mt={3} ml={5} sx={{color: 'white', fontSize: "40px"}}>
-                        Michal Filip
+                        {props.data.name}
                     </Typography>
                     <Typography mt={2} ml={5} sx={{color: 'gray', fontSize: "15px"}}>
                         Single · 2022 · 1 song
@@ -36,7 +57,7 @@ function Song() {
                     <MoreHorizIcon sx={{width: 35, height: 35, ml: 2, mt: 3, color: 'gray'}}/>
                 </Box>
             </Box>
-            <SongList/>
+            <SongList data={tracks}/>
         </Box>
     )
 }

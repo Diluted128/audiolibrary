@@ -5,9 +5,7 @@ import AccessTime from '@mui/icons-material/AccessTime';
 import Divider from '@mui/material/Divider';
 import OneSong from "./OneSong";
 
-const songs = [1,2,3,4,5]
-
-function SongList() {
+function SongList(props) {
     return(
         <Box sx={{backgroundColor: 'rgb(0, 0, 0, 0.1)'}}>
             <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
@@ -26,7 +24,7 @@ function SongList() {
                 
             </Grid>
             <Divider sx={{backgroundColor: 'gray'}}/>
-            {songs.map(el => <OneSong/>)}
+            {props.data.map((el, index) => <OneSong data={el} index={index}/>)}
         </Box>
     )
 }
