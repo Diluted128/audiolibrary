@@ -13,6 +13,7 @@ services:
       DATABASE_PORT: 5432
       DATABASE_PASSW: ssi_password
       DATABASE_NAME: audiolibrary
+    command: node api.js
   postgres:
         image: postgres
         environment:
