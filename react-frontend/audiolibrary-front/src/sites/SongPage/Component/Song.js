@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CardMedia from '@mui/material/CardMedia';
-import skoda from '../../../images/skoda.png'
+import plyta2 from '../../../images/plyta2.jpg'
 import Typography from '@mui/material/Typography';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import ArrowCircleDown from '@mui/icons-material/ArrowCircleDown'
@@ -51,7 +51,7 @@ function Song(props) {
                     component="img"
                     height="40"
                     width='40'
-                    image={skoda}
+                    image={plyta2}
                     alt="green iguana"
                 />
                 <Box sx={{ height: 10, width: '90%'}}>

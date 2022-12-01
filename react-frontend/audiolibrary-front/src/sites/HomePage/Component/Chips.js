@@ -23,9 +23,9 @@ function Chips(props) {
               },
         }}
     >
-        <Avatar sx={{width: 170, height: 170, m: 'auto', mt: '10px', borderRadius: "10%"}} alt="Remy Sharp" src={kotek2} />
-        <Typography sx={{color: 'white', m: 1, fontSize: 20}}>{props.data.firstname} {props.data.lastname}</Typography>
-            <Typography sx={{color: 'white', m: 1, fontSize: 15}}>{props.data.age} lat {props.data.country}</Typography>
+        <Avatar sx={{width: 170, height: 170, m: 'auto', mt: '15px', borderRadius: "10%"}} alt="Remy Sharp" src={props.artist[props.count]} />
+        <Typography sx={{color: 'white', m: 1, fontSize: 25}}>{props.data.firstname} {props.data.lastname}</Typography>
+        <Typography sx={{color: 'white', m: 0.5,fontSize: 10}}>props.data.age} lat {props.data.country}</Typography>
     </Box>
     )
 }

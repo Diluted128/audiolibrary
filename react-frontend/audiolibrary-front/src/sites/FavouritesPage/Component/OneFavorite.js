@@ -5,7 +5,7 @@ import AccessTime from '@mui/icons-material/AccessTime';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import skoda from '../../../images/skoda.png'
+import plyta2 from '../../../images/plyta2.jpg'
 import CardMedia from '@mui/material/CardMedia';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -29,7 +29,7 @@ function OneFavourite(props) {
                             component="img"
                             height="40"
                             width='40'
-                            image={skoda}
+                            image={plyta2}
                             alt="green iguana"
                         />
                         <Box sx={{ml:2, mt: 1}}>
