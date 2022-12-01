@@ -7,12 +7,12 @@ import kotek from '../../../images/kotek.jpg'
 import kotek2 from '../../../images/kotek2.jpg'
 
 
-function Chips() {
+function Chips(props) {
     return(
         <Box onClick = {()=>(console.log('przechodze do nastepnej strony'))}
         sx={{
             minWidth: 200,
-            height: 300,
+            height: 280,
             mr: '50px',
             mb: '20px',
             borderRadius: "2%",
@@ -23,9 +23,9 @@ function Chips() {
               },
         }}
     >
-        <Avatar sx={{width: 170, height: 170, m: 'auto', mt: '15px', borderRadius: "10%"}} alt="Remy Sharp" src={kotek2} />
-        <Typography sx={{color: 'white', m: 1, fontSize: 25}}>Skoda Felicja</Typography>
-        <Typography sx={{color: 'white', m: 0.5,fontSize: 10}}>skoda felicja to najzajebistrze auto jakie znam</Typography>
+        <Avatar sx={{width: 170, height: 170, m: 'auto', mt: '10px', borderRadius: "10%"}} alt="Remy Sharp" src={kotek2} />
+        <Typography sx={{color: 'white', m: 1, fontSize: 20}}>{props.data.firstname} {props.data.lastname}</Typography>
+            <Typography sx={{color: 'white', m: 1, fontSize: 15}}>{props.data.age} lat {props.data.country}</Typography>
     </Box>
     )
 }
