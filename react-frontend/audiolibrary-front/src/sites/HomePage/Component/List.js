@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import {Link, redirect} from "react-router-dom";
 
 function List() {
+
     const [artists, setArtists] = useState([]);
 
     useEffect(() => {
