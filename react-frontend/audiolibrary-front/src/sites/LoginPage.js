@@ -23,7 +23,7 @@ function LoginPage() {
             user[inputs[i].getAttribute('jsonattribute')] = inputs[i].value
         }
 
-        fetch('http://localhost:3506/login', {
+        fetch('http://localhost:3507/login', {
             method: 'POST',
             headers: {
                 'Content-Type': "application/json"

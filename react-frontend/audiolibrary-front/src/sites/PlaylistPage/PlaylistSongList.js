@@ -8,8 +8,6 @@ import Cookies from "js-cookie";
 
 function PlaylistSongList(props) {
 
-    let counter = 1;
-
     return(
         <Box sx={{backgroundColor: 'rgb(0, 0, 0, 0.1)', mt: 4}}>
             <Grid container sx={{color: 'gray', fontSize: 15, pt: 1, pb: 1}}>
@@ -28,7 +26,7 @@ function PlaylistSongList(props) {
                 
             </Grid>
             <Divider sx={{backgroundColor: 'gray'}}/>
-            {props.playlistData.map(el => <OneSong counter={counter++} title={el.title} firstname={el.firstname} lastname={el.lastname}/>)}
+            {props.playlistData.map((el, index) => <OneSong index={index} data={el}/>)}
         </Box>
     )
 }

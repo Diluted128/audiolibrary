@@ -25,7 +25,7 @@ function PlaylistPage() {
         console.log(location.state.playlist.id)
         console.log(data.trackName)
         
-        axios.post('http://localhost:3506/playlist/' + location.state.playlist.id + '/track', postBody, {
+        axios.post('http://localhost:3507/playlist/' + location.state.playlist.id + '/track', postBody, {
             headers: {
                 'Authorization' : `Bearer ${Cookies.get('APItoken')}`,
                 'Content-Type': 'application/json'
@@ -44,8 +44,8 @@ function PlaylistPage() {
     }
 
     useEffect(() => {
-        console.log('http://localhost:3506/playlist/' + location.state.playlist.id + "/tracks")
-        fetch('http://localhost:3506/playlist/' + location.state.playlist.id + "/tracks", {
+        console.log('http://localhost:3507/playlist/' + location.state.playlist.id + "/tracks")
+        fetch('http://localhost:3507/playlist/' + location.state.playlist.id + "/tracks", {
             method: 'GET',
             headers: {
                 'Content-Type': "application/json",
